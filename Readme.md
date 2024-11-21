@@ -35,8 +35,8 @@ views: Pasta utilizada para centralizar as funções de exibição mais complexa
 index.js: Arquivo raiz do projeto
 
 # Preview
-![](https://github.com/Biguelini/desafio2-2-ihuul/blob/main/preview/Captura%20de%20tela%202024-11-21%20121421.png)
-![](https://github.com/Biguelini/desafio2-2-ihuul/blob/main/preview/Captura%20de%20tela%202024-11-21%20121427.png)
-![](https://github.com/Biguelini/desafio2-2-ihuul/blob/main/preview/Captura%20de%20tela%202024-11-21%20121434.png)
-![](https://github.com/Biguelini/desafio2-2-ihuul/blob/main/preview/Captura%20de%20tela%202024-11-21%20121504.png)
+![](https://github.com/Biguelini/desafio2-2-ihuul/blob/main/preview/Captura%20de%20tela%202024-11-21%20121421.png) <br/>
+![](https://github.com/Biguelini/desafio2-2-ihuul/blob/main/preview/Captura%20de%20tela%202024-11-21%20121427.png) <br/>
+![](https://github.com/Biguelini/desafio2-2-ihuul/blob/main/preview/Captura%20de%20tela%202024-11-21%20121434.png) <br/>
+![](https://github.com/Biguelini/desafio2-2-ihuul/blob/main/preview/Captura%20de%20tela%202024-11-21%20121504.png) <br/>
 ![](https://github.com/Biguelini/desafio2-2-ihuul/blob/main/preview/Captura%20de%20tela%202024-11-21%20121530.png)
