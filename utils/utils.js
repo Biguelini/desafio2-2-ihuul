@@ -5,7 +5,7 @@ function nomeValido(nome) {
 	return nome.length >= 5;
 }
 
-function dataNascimentoValida(dataNascimento) {
+function dataFormatoValido(dataNascimento) {
     const data = DateTime.fromFormat(dataNascimento, "dd/MM/yyyy");
     if (!data.isValid) {
         return false;
@@ -13,4 +13,4 @@ function dataNascimentoValida(dataNascimento) {
 	return true;
 }
 
-module.exports = { nomeValido, dataNascimentoValida };
+module.exports = { nomeValido, dataFormatoValido };

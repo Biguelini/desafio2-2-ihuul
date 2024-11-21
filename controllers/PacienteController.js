@@ -2,7 +2,7 @@ let { pacientes, agendamentos } = require('../data/dataStore');
 const prompt = require('../utils/prompt');
 const cpfValidator = require('../utils/cpfValidator');
 const { exibirMenuCadastroPaciente } = require('../views/menus');
-const { dataNascimentoValida, nomeValido } = require('../utils/utils');
+const { dataFormatoValido, nomeValido } = require('../utils/utils');
 const { calcularIdade } = require('../utils/dateUtils');
 const { listarPacientes } = require('../views/listagem');
 const Paciente = require('../models/Paciente');
@@ -36,7 +36,7 @@ function adicionarPaciente() {
 
 	while (true) {
 		dataNascimento = prompt("Data de nascimento (DD/MM/AAAA): ");
-		if (dataNascimentoValida(dataNascimento) == false) {
+		if (dataFormatoValido(dataNascimento) == false) {
 			console.log("Data de nascimento inválida. Digite novamente.");
 			continue;
 		}

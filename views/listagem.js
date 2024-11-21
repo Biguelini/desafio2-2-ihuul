@@ -41,7 +41,7 @@ function listarAgenda(agendamentos, dataInicio = null, dataFim = null) {
 		})
 		.forEach(ag => {
 			const tempo = DateTime.fromFormat(ag.horaFinal, 'HHmm').diff(DateTime.fromFormat(ag.horaInicial, 'HHmm'), 'minutes').toObject().minutes;
-			console.log(`${ag.dataConsulta}  ${ag.horaInicial}  ${ag.horaFinal}  ${tempo.toFixed(0)} mins   ${ag.paciente.nome.padEnd(20)}  ${ag.paciente.dataNascimento}`);
+			console.log(`${ag.dataConsulta}  ${ag.horaInicial}  ${ag.horaFinal}  ${tempo.toFixed(0)} mins   ${ag.paciente().nome.padEnd(20)}  ${ag.paciente.dataNascimento}`);
 		});
 
 	console.log("-------------------------------------------------------------");
