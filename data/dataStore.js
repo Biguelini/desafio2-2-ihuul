@@ -1,4 +1,4 @@
-const pacientes = [];
-const agendamentos = [];
+let pacientes = [];
+let agendamentos = [];
 
 module.exports = { pacientes, agendamentos };

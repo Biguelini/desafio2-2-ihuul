@@ -1,4 +1,4 @@
-const { pacientes, agendamentos } = require('../data/dataStore');
+let { pacientes, agendamentos } = require('../data/dataStore');
 const prompt = require('../utils/prompt');
 const cpfValidator = require('../utils/cpfValidator');
 const { exibirMenuCadastroPaciente } = require('../views/menus');
@@ -74,7 +74,7 @@ function excluirPaciente() {
         return;
     }
 
-    agendamentos = agendamentos.filter(a => a.paciente().cpf() !== cpf);
+    agendamentos.splice(0, agendamentos.length, ...agendamentos.filter(a => a.paciente().cpf() !== cpf));
 
     pacientes.splice(index, 1);
 
@@ -103,4 +103,4 @@ function menuCadastroPaciente() {
 	} while (opcao !== '5');
 }
 
-module.exports = { menuCadastroPaciente, pacientes };
+module.exports = { menuCadastroPaciente, pacientes,  agendamentos};
