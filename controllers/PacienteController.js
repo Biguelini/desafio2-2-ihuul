@@ -14,28 +14,34 @@ function adicionarPaciente() {
 	let dataNascimento;
 	while (true) {
 		cpf = prompt("CPF: ").replace(/\D/g, "");
+
 		if (!cpfValidator(cpf)) {
 			console.log("Erro: CPF inválido. Digite novamente.");
 			continue;
 		}
+
 		if (pacientes.some(p => p.cpf === cpf)) {
 			console.log("Erro: CPF duplicado. Digite novamente.");
 			continue;
 		}
+
 		break;
 	}
 
 	while (true) {
 		nome = prompt("Nome: ");
+
 		if (!nomeValido(nome)) {
 			console.log("Nome inválido. Digite novamente.");
 			continue;
 		}
+
 		break;
 	}
 
 	while (true) {
 		dataNascimento = prompt("Data de nascimento (DD/MM/AAAA): ");
+
 		if (dataFormatoValido(dataNascimento) == false) {
 			console.log("Erro: data de nascimento inválida. Digite novamente.");
 			continue;
@@ -45,6 +51,7 @@ function adicionarPaciente() {
 			console.log("Erro: o dentista só atende pacientes com 13 anos ou mais. Verifique a data de nascimento.");
 			continue;
 		}
+
 		break;
 	}
 
@@ -55,30 +62,30 @@ function adicionarPaciente() {
 }
 
 function excluirPaciente() {
-    const cpf = prompt("CPF do paciente a ser excluído: ");
+	const cpf = prompt("CPF do paciente a ser excluído: ");
 
-    const index = pacientes.findIndex(p => p.cpf() === cpf);
+	const index = pacientes.findIndex(p => p.cpf() === cpf);
 
-    if (index === -1) {
-        console.log("Erro: paciente não encontrado.");
-        return;
-    }
+	if (index === -1) {
+		console.log("Erro: paciente não encontrado.");
+		return;
+	}
 
-    const agendamentosPaciente = agendamentos.filter(a => a.paciente().cpf() === cpf);
-    const consultasFuturas = agendamentosPaciente.some(a => 
-        DateTime.fromFormat(a.dataConsulta(), "dd/MM/yyyy") > DateTime.now()
-    );
+	const agendamentosPaciente = agendamentos.filter(a => a.paciente().cpf() === cpf);
+	const consultasFuturas = agendamentosPaciente.some(a =>
+		DateTime.fromFormat(a.dataConsulta(), "dd/MM/yyyy") > DateTime.now()
+	);
 
-    if (consultasFuturas) {
-        console.log("Erro: não é possível excluir o paciente. Existem consultas futuras agendadas.");
-        return;
-    }
+	if (consultasFuturas) {
+		console.log("Erro: não é possível excluir o paciente. Existem consultas futuras agendadas.");
+		return;
+	}
 
-    agendamentos.splice(0, agendamentos.length, ...agendamentos.filter(a => a.paciente().cpf() !== cpf));
+	agendamentos.splice(0, agendamentos.length, ...agendamentos.filter(a => a.paciente().cpf() !== cpf));
 
-    pacientes.splice(index, 1);
+	pacientes.splice(index, 1);
 
-    console.log("Paciente excluído com sucesso.");
+	console.log("Paciente excluído com sucesso.");
 }
 
 
@@ -103,4 +110,4 @@ function menuCadastroPaciente() {
 	} while (opcao !== '5');
 }
 
-module.exports = { menuCadastroPaciente, pacientes,  agendamentos};
+module.exports = { menuCadastroPaciente, pacientes, agendamentos };

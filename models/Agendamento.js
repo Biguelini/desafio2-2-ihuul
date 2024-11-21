@@ -32,12 +32,15 @@ class Agendamento {
 	dataConsulta() {
 		return this.#dataConsulta;
 	}
+
 	horaInicial() {
 		return this.#horaInicial;
 	}
+
 	horaFinal() {
 		return this.#horaFinal;
 	}
+
 	paciente() {
 		return this.#paciente;
 	}

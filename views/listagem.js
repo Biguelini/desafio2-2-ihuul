@@ -51,6 +51,7 @@ function listarAgenda(agendamentos, dataInicio = null, dataFim = null) {
 
 			const horaInicialLuxon = DateTime.fromFormat(ag.horaInicial(), 'HHmm').toFormat('HH:mm');
 			const horaFinalLuxon = DateTime.fromFormat(ag.horaFinal(), 'HHmm').toFormat('HH:mm');
+
 			table.push(
 				[ag.dataConsulta(), horaInicialLuxon, horaFinalLuxon, tempo, ag.paciente().nome(), ag.paciente().dataNascimento()]
 			);

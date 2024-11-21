@@ -1,5 +1,4 @@
 const { exibirMenuPrincipal } = require('./views/menus.js');
-const prompt = require('./utils/prompt');
 
 function main() {
 	let opcao;
