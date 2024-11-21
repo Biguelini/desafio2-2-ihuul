@@ -1,9 +1,7 @@
+const { pacientes, agendamentos } = require('../data/dataStore');
 const Agendamento = require('../models/Agendamento');
-const pacientes = require('./PacienteController').pacientes;
 const prompt = require('../utils/prompt');
 const { validarDataHora } = require('../utils/dateUtils');
-
-const agendamentos = [];
 
 function agendarConsulta() {
     const cpf = prompt("CPF do paciente: ");
@@ -47,4 +45,4 @@ function menuAgenda() {
     } while (opcao !== '3');
 }
 
-module.exports = { menuAgenda };
+module.exports = { menuAgenda, agendamentos };

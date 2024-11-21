@@ -1,14 +1,14 @@
-const Paciente = require('../models/Paciente');
-const pacientes = [];
+const { pacientes, agendamentos } = require('../data/dataStore');
 const prompt = require('../utils/prompt');
 const cpfValidator = require('../utils/cpfValidator');
 const { exibirMenuCadastroPaciente } = require('../views/menus');
 const { dataNascimentoValida, nomeValido } = require('../utils/utils');
 const { calcularIdade } = require('../utils/dateUtils');
 const { listarPacientes } = require('../views/listagem');
+const Paciente = require('../models/Paciente');
+const { DateTime } = require('luxon');
 
 function adicionarPaciente() {
-
 	let cpf;
 	let nome;
 	let dataNascimento;
@@ -55,15 +55,32 @@ function adicionarPaciente() {
 }
 
 function excluirPaciente() {
-	const cpf = prompt("CPF do paciente a ser excluído: ");
-	const index = pacientes.findIndex(p => p.cpf() === cpf);
-	if (index !== -1) {
-		pacientes.splice(index, 1);
-		console.log("Paciente excluído com sucesso.");
-	} else {
-		console.log("Paciente não encontrado.");
-	}
+    const cpf = prompt("CPF do paciente a ser excluído: ");
+
+    const index = pacientes.findIndex(p => p.cpf() === cpf);
+
+    if (index === -1) {
+        console.log("Paciente não encontrado.");
+        return;
+    }
+
+    const agendamentosPaciente = agendamentos.filter(a => a.paciente().cpf() === cpf);
+    const consultasFuturas = agendamentosPaciente.some(a => 
+        DateTime.fromFormat(a.dataConsulta(), "dd/MM/yyyy") > DateTime.now()
+    );
+
+    if (consultasFuturas) {
+        console.log("Não é possível excluir o paciente. Existem consultas futuras agendadas.");
+        return;
+    }
+
+    agendamentos = agendamentos.filter(a => a.paciente().cpf() !== cpf);
+
+    pacientes.splice(index, 1);
+
+    console.log("Paciente excluído com sucesso.");
 }
+
 
 function menuCadastroPaciente() {
 	let opcao;
