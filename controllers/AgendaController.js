@@ -1,9 +1,8 @@
 const { DateTime } = require('luxon');
 const { pacientes, agendamentos } = require('../data/dataStore');
 const Agendamento = require('../models/Agendamento');
-const { horaValida } = require('../utils/dateUtils');
 const prompt = require('../utils/prompt');
-const { dataFormatoValido } = require('../utils/utils');
+const { dataFormatoValido, horaValida } = require('../utils/utils');
 const { exibirMenuAgenda } = require('../views/menus');
 const { listarAgenda } = require('../views/listagem');
 

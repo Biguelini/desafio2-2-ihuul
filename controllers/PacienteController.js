@@ -1,9 +1,7 @@
 let { pacientes, agendamentos } = require('../data/dataStore');
 const prompt = require('../utils/prompt');
-const cpfValidator = require('../utils/cpfValidator');
 const { exibirMenuCadastroPaciente } = require('../views/menus');
-const { dataFormatoValido, nomeValido } = require('../utils/utils');
-const { calcularIdade } = require('../utils/dateUtils');
+const { dataFormatoValido, nomeValido, validarCPF, calcularIdade } = require('../utils/utils');
 const { listarPacientes } = require('../views/listagem');
 const Paciente = require('../models/Paciente');
 const { DateTime } = require('luxon');
@@ -15,7 +13,7 @@ function adicionarPaciente() {
 	while (true) {
 		cpf = prompt("CPF: ").replace(/\D/g, "");
 
-		if (!cpfValidator(cpf)) {
+		if (!validarCPF(cpf)) {
 			console.log("Erro: CPF inválido. Digite novamente.");
 			continue;
 		}

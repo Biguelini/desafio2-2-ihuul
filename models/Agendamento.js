@@ -1,4 +1,4 @@
-const { validarHorario } = require('../utils/dateUtils');
+const { validarHorario } = require("../utils/utils");
 
 class Agendamento {
 	#dataConsulta;
