@@ -167,7 +167,38 @@ function menuAgenda() {
 				excluirAgendamento();
 				break;
 			case '3':
-				listarAgenda(agendamentos);
+				const filtro = prompt("Apresentar a agenda T-Toda ou P-Periodo: ");
+				if (filtro == 'T') {
+					listarAgenda(agendamentos);
+				} else {
+					let dataInicial;
+					let dataFinal;
+
+					while (true) {
+						dataInicial = prompt("Data inicial (DD/MM/AAAA): ");
+
+						if (dataFormatoValido(dataInicial) == false) {
+							console.log("Erro: data inválida. Digite novamente.");
+							continue;
+						}
+
+						break;
+					}
+
+					while (true) {
+						dataFinal = prompt("Data final (DD/MM/AAAA): ");
+
+						if (dataFormatoValido(dataFinal) == false) {
+							console.log("Erro: data inválida. Digite novamente.");
+							continue;
+						}
+
+						break;
+					}
+
+					listarAgenda(agendamentos, dataInicial, dataFinal);
+				}
+
 				break;
 		}
 	} while (opcao !== '4');
