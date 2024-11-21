@@ -23,28 +23,40 @@ function listarPacientes(pacientes, ordemAlfabetica = false) {
 }
 
 function listarAgenda(agendamentos, dataInicio = null, dataFim = null) {
-	console.log("-------------------------------------------------------------");
-	console.log("Data        H.Ini  H.Fim  Tempo   Nome                  Dt.Nasc.");
-	console.log("-------------------------------------------------------------");
+	var table = new Table({
+		head: ['Data', 'H.Ini', 'HG.Fim', 'Tempo', 'Nome', 'Dt.Nasc.'],
+	});
 
 	agendamentos
 		.filter(ag => {
-			const dataConsulta = DateTime.fromFormat(ag.dataConsulta, 'dd/MM/yyyy');
+			const dataConsulta = DateTime.fromFormat(ag.dataConsulta(), 'dd/MM/yyyy');
 			const inicio = dataInicio ? DateTime.fromFormat(dataInicio, 'dd/MM/yyyy') : null;
 			const fim = dataFim ? DateTime.fromFormat(dataFim, 'dd/MM/yyyy') : null;
 			return (!inicio || dataConsulta >= inicio) && (!fim || dataConsulta <= fim);
 		})
 		.sort((a, b) => {
-			const dataA = DateTime.fromFormat(a.dataConsulta + a.horaInicial, 'dd/MM/yyyyHHmm');
-			const dataB = DateTime.fromFormat(b.dataConsulta + b.horaInicial, 'dd/MM/yyyyHHmm');
+			const dataA = DateTime.fromFormat(a.dataConsulta() + a.horaInicial(), 'dd/MM/yyyy HHmm');
+			const dataB = DateTime.fromFormat(b.dataConsulta() + b.horaInicial(), 'dd/MM/yyyy HHmm');
 			return dataA - dataB;
 		})
 		.forEach(ag => {
-			const tempo = DateTime.fromFormat(ag.horaFinal, 'HHmm').diff(DateTime.fromFormat(ag.horaInicial, 'HHmm'), 'minutes').toObject().minutes;
-			console.log(`${ag.dataConsulta}  ${ag.horaInicial}  ${ag.horaFinal}  ${tempo.toFixed(0)} mins   ${ag.paciente().nome.padEnd(20)}  ${ag.paciente.dataNascimento}`);
+			const inicio = DateTime.fromFormat(ag.horaInicial(), 'HHmm');
+			const fim = DateTime.fromFormat(ag.horaFinal(), 'HHmm');
+			const diff = fim.diff(inicio, ['hours', 'minutes']).toObject();
+
+			const horas = Math.floor(diff.hours || 0);
+			const minutos = diff.minutes || 0;
+
+			const tempo = `${String(horas).padStart(2, '0')}:${String(minutos).padStart(2, '0')}`;
+
+			const horaInicialLuxon = DateTime.fromFormat(ag.horaInicial(), 'HHmm').toFormat('HH:mm');
+			const horaFinalLuxon = DateTime.fromFormat(ag.horaFinal(), 'HHmm').toFormat('HH:mm');
+			table.push(
+				[ag.dataConsulta(), horaInicialLuxon, horaFinalLuxon, tempo, ag.paciente().nome(), ag.paciente().dataNascimento()]
+			);
 		});
 
-	console.log("-------------------------------------------------------------");
+	console.log(table.toString());
 }
 
 module.exports = { listarPacientes, listarAgenda };

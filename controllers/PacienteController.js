@@ -15,11 +15,11 @@ function adicionarPaciente() {
 	while (true) {
 		cpf = prompt("CPF: ").replace(/\D/g, "");
 		if (!cpfValidator(cpf)) {
-			console.log("CPF inválido. Digite novamente.");
+			console.log("Erro: CPF inválido. Digite novamente.");
 			continue;
 		}
 		if (pacientes.some(p => p.cpf === cpf)) {
-			console.log("CPF duplicado. Digite novamente.");
+			console.log("Erro: CPF duplicado. Digite novamente.");
 			continue;
 		}
 		break;
@@ -37,12 +37,12 @@ function adicionarPaciente() {
 	while (true) {
 		dataNascimento = prompt("Data de nascimento (DD/MM/AAAA): ");
 		if (dataFormatoValido(dataNascimento) == false) {
-			console.log("Data de nascimento inválida. Digite novamente.");
+			console.log("Erro: data de nascimento inválida. Digite novamente.");
 			continue;
 		}
 
 		if (calcularIdade(dataNascimento) < 13) {
-			console.log("O dentista só atende pacientes com 13 anos ou mais. Verifique a data de nascimento.");
+			console.log("Erro: o dentista só atende pacientes com 13 anos ou mais. Verifique a data de nascimento.");
 			continue;
 		}
 		break;
@@ -60,7 +60,7 @@ function excluirPaciente() {
     const index = pacientes.findIndex(p => p.cpf() === cpf);
 
     if (index === -1) {
-        console.log("Paciente não encontrado.");
+        console.log("Erro: paciente não encontrado.");
         return;
     }
 
@@ -70,7 +70,7 @@ function excluirPaciente() {
     );
 
     if (consultasFuturas) {
-        console.log("Não é possível excluir o paciente. Existem consultas futuras agendadas.");
+        console.log("Erro: não é possível excluir o paciente. Existem consultas futuras agendadas.");
         return;
     }
 

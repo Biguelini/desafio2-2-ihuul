@@ -4,6 +4,8 @@ const Agendamento = require('../models/Agendamento');
 const { horaValida } = require('../utils/dateUtils');
 const prompt = require('../utils/prompt');
 const { dataFormatoValido } = require('../utils/utils');
+const { exibirMenuAgenda } = require('../views/menus');
+const { listarAgenda } = require('../views/listagem');
 
 function agendarConsulta() {
 	while (true) {
@@ -18,7 +20,7 @@ function agendarConsulta() {
 			paciente = pacientes.find(p => p.cpf() === cpf);
 
 			if (!paciente) {
-				console.log("Paciente não encontrado.");
+				console.log("Erro: paciente não encontrado.");
 				continue;
 			}
 
@@ -29,7 +31,7 @@ function agendarConsulta() {
 			dataConsulta = prompt("Data da consulta (DD/MM/AAAA): ");
 
 			if (dataFormatoValido(dataConsulta) == false) {
-				console.log("Data inválida. Digite novamente.");
+				console.log("Erro: data inválida. Digite novamente.");
 				continue;
 			}
 
@@ -40,7 +42,7 @@ function agendarConsulta() {
 			horaInicial = prompt("Hora inicial (HHMM): ");
 
 			if (!horaValida(horaInicial)) {
-				console.log("Horário inválido. Horários devem ser múltiplos de 15 minutos.");
+				console.log("Erro: horário inválido. Horários devem ser múltiplos de 15 minutos.");
 				continue;
 			}
 
@@ -51,7 +53,7 @@ function agendarConsulta() {
 			horaFinal = prompt("Hora final (HHMM): ");
 
 			if (!horaValida(horaFinal)) {
-				console.log("Horário inválido. Horários devem ser múltiplos de 15 minutos.");
+				console.log("Erro: horário inválido. Horários devem ser múltiplos de 15 minutos.");
 				continue;
 			}
 
@@ -61,7 +63,7 @@ function agendarConsulta() {
 		const agendamento = new Agendamento(dataConsulta, horaInicial, horaFinal, paciente);
 
 		if (!agendamento.valido()) {
-			console.log("Erro no agendamento. Horários inválidos ou fora do expediente.");
+			console.log("Erro: horários inválidos ou fora do expediente.");
 			continue;
 		}
 
@@ -93,24 +95,82 @@ function agendarConsulta() {
 	}
 }
 
-function listarAgenda() {
-	console.log("Agenda:");
-	agendamentos.forEach(a => console.log(a.toString()));
+function excluirAgendamento() {
+	let cpf;
+	let paciente;
+	let dataConsulta;
+	let horaInicial;
+
+	while (true) {
+		cpf = prompt("CPF do paciente: ");
+		paciente = pacientes.find(p => p.cpf() === cpf);
+
+		if (!paciente) {
+			console.log("Erro: paciente não encontrado.");
+			continue;
+		}
+
+		break;
+	}
+
+	while (true) {
+		dataConsulta = prompt("Data da consulta (DD/MM/AAAA): ");
+
+		if (dataFormatoValido(dataConsulta) == false) {
+			console.log("Erro: data inválida. Digite novamente.");
+			continue;
+		}
+
+		break;
+	}
+
+	while (true) {
+		horaInicial = prompt("Hora inicial (HHMM): ");
+
+		if (!horaValida(horaInicial)) {
+			console.log("Erro: horário inválido. Horários devem ser múltiplos de 15 minutos.");
+			continue;
+		}
+
+		break;
+	}
+	const agendamento = agendamentos.find((a) =>
+		a.paciente().cpf() === cpf && a.dataConsulta() == dataConsulta && a.horaInicial() == horaInicial
+	);
+
+	if (!agendamento) {
+		console.log('Erro: agendamento não encontrado');
+	} else {
+		const agora = DateTime.now();
+		const inicioAgendamento = DateTime.fromFormat(`${dataConsulta} ${horaInicial}`, "dd/MM/yyyy HHmm");
+
+		if (inicioAgendamento <= agora) {
+			console.log("Erro: você só pode cancelar agendamentos futuros.");
+		} else {
+			const index = agendamentos.findIndex((a) => { a.paciente().cpf() === cpf && a.dataConsulta() == dataConsulta && a.horaInicial() == horaInicial });
+			agendamentos.splice(index, 1);
+
+			console.log("Agendamento cancelado com sucesso.");
+		}
+	}
 }
 
 function menuAgenda() {
 	let opcao;
 	do {
-		opcao = prompt("1-Agendar, 2-Listar, 3-Voltar: ");
+		opcao = exibirMenuAgenda();
 		switch (opcao) {
 			case '1':
 				agendarConsulta();
 				break;
 			case '2':
-				listarAgenda();
+				excluirAgendamento();
+				break;
+			case '3':
+				listarAgenda(agendamentos);
 				break;
 		}
-	} while (opcao !== '3');
+	} while (opcao !== '4');
 }
 
 module.exports = { menuAgenda, agendamentos };

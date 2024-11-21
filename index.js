@@ -16,7 +16,7 @@ function main() {
 				console.log("Saindo...");
 				break;
 			default:
-				console.log("Opção inválida.");
+				console.log("Erro: opção inválida.");
 		}
 	} while (opcao !== '3');
 }
