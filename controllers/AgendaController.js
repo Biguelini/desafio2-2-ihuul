@@ -7,8 +7,11 @@ const agendamentos = [];
 
 function agendarConsulta() {
     const cpf = prompt("CPF do paciente: ");
-	console.log(pacientes)
-    const paciente = pacientes.find(p => p.cpf === cpf);
+	pacientes.map((paciente)=>{
+		console.log(paciente.toString())
+	})
+	
+    const paciente = pacientes.find(p => p.cpf() === cpf);
     if (!paciente) return console.log("Paciente não encontrado.");
     
     const dataConsulta = prompt("Data da consulta (DD/MM/AAAA): ");

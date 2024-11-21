@@ -26,6 +26,19 @@ class Agendamento {
     toString() {
         return `${this.#dataConsulta} ${this.#horaInicial} - ${this.#horaFinal} Paciente: ${this.#paciente.nome}`;
     }
+
+	dataConsulta() {
+		return this.#dataConsulta;
+	}
+	horaInicial() {
+		return this.#horaInicial;
+	}	
+	horaFinal() {
+		return this.#horaFinal;
+	}	
+	paciente() {
+		return this.#paciente;
+	}	
 }
 
 module.exports = Agendamento;

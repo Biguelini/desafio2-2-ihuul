@@ -1,6 +1,5 @@
 const prompt = require('../utils/prompt');
 
-// Exibe o menu principal e retorna a opção escolhida
 function exibirMenuPrincipal() {
     console.log("\nMenu Principal:");
     console.log("1 - Cadastro de pacientes");
@@ -11,7 +10,6 @@ function exibirMenuPrincipal() {
     return opcao;
 }
 
-// Exibe o menu de cadastro de pacientes e retorna a opção escolhida
 function exibirMenuCadastroPaciente() {
     console.log("\nMenu do Cadastro de Pacientes:");
     console.log("1 - Cadastrar novo paciente");
@@ -24,9 +22,8 @@ function exibirMenuCadastroPaciente() {
     return opcao;
 }
 
-// Exibe o menu da agenda e retorna a opção escolhida
 function exibirMenuAgenda() {
-    console.log("\nMenu da Agenda:");
+    console.log("\nAgenda:");
     console.log("1 - Agendar consulta");
     console.log("2 - Cancelar agendamento");
     console.log("3 - Listar agenda");

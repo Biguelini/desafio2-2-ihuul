@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/Biguelini/desafio2-2-ihuul#readme",
   "dependencies": {
+    "cli-tableau": "^2.0.1",
     "luxon": "^3.5.0",
     "prompt-sync": "^4.2.0"
   }

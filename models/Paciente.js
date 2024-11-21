@@ -1,5 +1,3 @@
-const { calcularIdade } = require('../utils/dateUtils');
-
 class Paciente {
 	#cpf;
 	#nome;
@@ -11,12 +9,20 @@ class Paciente {
 		this.#dataNascimento = dataNascimento;
 	}
 
-	valido() {
-		return this.#nome.length >= 5 && calcularIdade(this.#dataNascimento) >= 13;
-	}
-
 	toString() {
 		return `CPF: ${this.#cpf}, Nome: ${this.#nome}, Data de Nasc.: ${this.#dataNascimento}`;
+	}
+
+	cpf() {
+		return this.#cpf;
+	}
+
+	nome() {
+		return this.#nome;
+	}
+
+	dataNascimento() {
+		return this.#dataNascimento;
 	}
 }
 
